@@ -34,3 +34,21 @@ def disparar(tablero):
     else:
 
         print("You already shot here.")
+
+
+def quedan_barcos(tablero):
+    """
+    Check if there are remaining ships on the board.
+
+    Returns
+    -------
+    bool
+        True if ships remain, False if all ships are destroyed.
+    """
+
+    for fila in tablero:
+        for celda in fila:
+            if celda == "O":
+                return True
+
+    return False
