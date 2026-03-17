@@ -1,3 +1,6 @@
+import os
+
+
 def convertir_coordenada(coordenada):
     """
     Convert player input (e.g., B7) into board indexes.
@@ -13,3 +16,15 @@ def convertir_coordenada(coordenada):
     fila = fila_numero - 1
 
     return fila, columna
+
+
+def limpiar_pantalla():
+    """
+    Clear the console screen.
+    Works on Windows, Linux and Mac.
+    """
+
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")

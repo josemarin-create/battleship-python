@@ -5,9 +5,15 @@ def crear_tablero(tamano=10):
     """
     Create a square game board using NumPy.
 
-    tamano :
+    Parameters
+    ----------
+    tamano : int
         Size of the board (default = 10).
 
+    Returns
+    -------
+    numpy.ndarray
+        A 2D array representing the game board filled with empty spaces.
     """
 
     # Create a matrix filled with empty spaces representing water
@@ -16,48 +22,59 @@ def crear_tablero(tamano=10):
     return tablero
 
 
-def mostrar_tablero(tablero):
+def mostrar_tablero(tablero, ocultar_barcos=False):
     """
-    Display the game board in the console in a visual format.
+    Display the game board in the console using emojis.
 
-    The function converts internal board symbols into emojis
-    so the player can easily understand the board state.
+    This function converts the internal board representation into a
+    visual format that is easy for the player to understand.
 
-    Internal representation:
-        " " -> empty water
-        "O" -> ship position
+    Parameters
+    ----------
+    tablero : numpy.ndarray
+        The game board.
+    ocultar_barcos : bool, optional
+        If True, ships will be hidden (used for opponent view).
 
-    Visual representation:
-        🌊 -> water
-        🚢 -> ship
-        💥 -> hit
-        ❌ -> miss
+    Internal representation
+    -----------------------
+    " " -> empty water
+    "O" -> ship
+    "X" -> hit
+    "-" -> miss
+
+    Visual representation
+    ---------------------
+    🌊 -> water
+    🚢 -> ship
+    💥 -> hit
+    ❌ -> miss
     """
 
-    # Column labels (A–J) shown at the top of the board (JUST VISUAL)
+    # Column labels (A–J)
     letras = "ABCDEFGHIJ"
 
-    # Print column headers (JUST VISUAL)
+    # Print column headers
     print("   " + " ".join(letras))
 
-    # Print horizontal separator (JUST VISUAL)
+    # Print separator
     print("  " + "-" * 20)
 
-    # Iterate through each row of the board
+    # Iterate through each row
     for i, fila in enumerate(tablero):
 
-        # This list will store the visual representation of the row
         fila_visual = []
 
-        # Iterate through each cell in the row
         for celda in fila:
 
-            # Convert internal board values to visual symbols
             if celda == " ":
                 fila_visual.append("🌊")
 
             elif celda == "O":
-                fila_visual.append("🚢")
+                if ocultar_barcos:
+                    fila_visual.append("🌊")
+                else:
+                    fila_visual.append("🚢")
 
             elif celda == "X":
                 fila_visual.append("💥")
@@ -68,5 +85,5 @@ def mostrar_tablero(tablero):
             else:
                 fila_visual.append(celda)
 
-    # Print row number and visual row content
+        # Print row
         print(f"{i} | " + " ".join(fila_visual))
